@@ -1,0 +1,33 @@
+{
+  "name": "replay-fsm",
+  "version": "0.0.1",
+  "description": "Replayable Finite State Machines in ES6",
+  "author": "Peter Neumark <neumark.peter@gmail.com>",
+  "homepage": "https://github.com/neumark/replay-fsm",
+  "license": "Apache-2.0",
+  "main": "lib/fsm.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npx ava",
+    "debugtest": "npx ava --timeout 400000 --node-arguments=--inspect-brk"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^3.5.0"
+  },
+  "ava": {
+    "files": [
+      "tests/**/*.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:neumark/replay-fsm.git"
+  }
+}
