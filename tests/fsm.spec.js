@@ -1,6 +1,6 @@
 // AVA tutorial: https://itenium.be/blog/javascript/ava-tutorial/
 const test = require('ava');
-const {FSM, FSMError, ERROR, EMPTY, runFSM, rerunFSM, makeStates, logTransitions} = require('../lib/fsm.js');
+const {FSM, FSMError, ERROR, EMPTY, runFSM, replayFSM, makeStates, logTransitions} = require('../lib/fsm.js');
 
 test('advance leads to next state', async t => {
   const states = makeStates("A", "B");
@@ -193,7 +193,7 @@ test('runFSM advances until stopping state reached', async t => {
   t.is(output, "a->b->c");
 });
 
-test('rerunFSM continues with correct input arguments', async t => {
+test('replayFSM continues with correct input arguments', async t => {
   const states = makeStates("START", "EVEN", "ODD", "FINISHED");
   const parity = (x) => x % 2 === 0 ? states.EVEN : states.ODD;
   const makeFSM = (max) => {
@@ -218,7 +218,7 @@ test('rerunFSM continues with correct input arguments', async t => {
   // rerun FSM starting off at last odd number (3) counting to 5.
   fsm = makeFSM(5);
   const transitionLog2 = logTransitions(fsm);
-  [state, output] = await rerunFSM(fsm, states.ODD, [states.FINISHED], transitionLog);
+  [state, output] = await replayFSM(fsm, states.ODD, [states.FINISHED], transitionLog);
   t.is(state, states.FINISHED, "FSM finished on states.FINISHED");
   t.is(output, 5, "counting stops at 5");
   // transactionLog2 is  ODD(3) -> EVEN(4) -> ODD(5) -> FINISHED
